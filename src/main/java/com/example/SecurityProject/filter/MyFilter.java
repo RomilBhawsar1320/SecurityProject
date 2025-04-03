@@ -1,4 +1,4 @@
-package com.example.SecurityProject.controller.filter;
+package com.example.SecurityProject.filter;
 
 import jakarta.servlet.*;
 
