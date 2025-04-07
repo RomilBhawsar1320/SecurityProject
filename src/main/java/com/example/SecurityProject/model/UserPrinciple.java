@@ -9,7 +9,7 @@ import java.util.List;
 
 public class UserPrinciple implements UserDetails {
 
-    private User user;
+    private final User user;
     public UserPrinciple(User user){
         this.user=user;
     }
