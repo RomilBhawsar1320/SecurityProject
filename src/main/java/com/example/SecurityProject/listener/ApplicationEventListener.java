@@ -24,6 +24,7 @@ public class ApplicationEventListener {
         try {
             myUserService.createUser(new User("sunil","s@123"));
             myUserService.createUser(new User("romil","r@123"));
+            myUserService.createUser(new User("priyanshi","p@123"));
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
