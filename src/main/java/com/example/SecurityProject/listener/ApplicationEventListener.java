@@ -1,5 +1,6 @@
 package com.example.SecurityProject.listener;
 
+import com.example.SecurityProject.exception.DuplicateUserException;
 import com.example.SecurityProject.model.User;
 import com.example.SecurityProject.service.MyUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,12 @@ public class ApplicationEventListener {
     }
 
     public void initializeUsers(){
-        myUserService.createUser(new User("sunil","s@123"));
-        myUserService.createUser(new User("romil","r@123"));
+        try {
+            myUserService.createUser(new User("sunil","s@123"));
+            myUserService.createUser(new User("romil","r@123"));
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 }

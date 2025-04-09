@@ -1,8 +1,11 @@
 package com.example.SecurityProject.controller;
 
+import com.example.SecurityProject.exception.DuplicateUserException;
 import com.example.SecurityProject.model.User;
 import com.example.SecurityProject.service.MyUserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,12 +19,15 @@ public class UserController {
     private final MyUserService myUserService;
 
     @PostMapping
-    public String createUser(@RequestBody User user){
+    public ResponseEntity<String> createUser(@RequestBody User user){
 
-        myUserService.createUser(user);
+        try {
+            myUserService.createUser(user);
 
-        return "user created";
-
+            return new ResponseEntity<>("user created", HttpStatus.OK);
+        } catch (DuplicateUserException e) {
+            return new ResponseEntity<>(e.getMessage(),HttpStatus.CONFLICT);
+        }
 
 
     }
