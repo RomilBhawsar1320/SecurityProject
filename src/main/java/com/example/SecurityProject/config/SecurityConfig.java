@@ -12,6 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.provisioning.UserDetailsManager;
@@ -24,11 +25,13 @@ public class SecurityConfig {
     @Autowired
     private UserDetailsService userDetailsService;
 
+    private BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(10);
+
     @Bean
     public AuthenticationProvider authenticationProvider(){
         DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
         daoAuthenticationProvider.setUserDetailsService(userDetailsService);
-        daoAuthenticationProvider.setPasswordEncoder(NoOpPasswordEncoder.getInstance());
+        daoAuthenticationProvider.setPasswordEncoder(bCryptPasswordEncoder);
         return daoAuthenticationProvider;
     }
 
